@@ -1,0 +1,103 @@
+<datasources-configuration xmlns:svns="http://org.wso2.securevault/configuration">
+
+    <providers>
+        <provider>org.wso2.carbon.ndatasource.rdbms.RDBMSDataSourceReader</provider>
+    </providers>
+
+    <datasources>
+
+        <datasource>
+            <name>WSO2_CARBON_DB</name>
+            <description>The datasource used for registry and user manager</description>
+            <jndiConfig>
+                <name>jdbc/WSO2CarbonDB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>${DS.WSO2_CARBON_DB.url}</url>
+                    <username>${DS.WSO2_CARBON_DB.username}</username>
+                    <password>${DS.WSO2_CARBON_DB.password}</password>
+                    <driverClassName>${DS.WSO2_CARBON_DB.driverClassName}</driverClassName>
+                    <maxActive>${DS.WSO2_CARBON_DB.maxActive}</maxActive>
+                    <maxWait>${DS.WSO2_CARBON_DB.maxWait}</maxWait>
+                    <minIdle>${DS.WSO2_CARBON_DB.minIdle}</minIdle>
+                    <testOnBorrow>${DS.WSO2_CARBON_DB.testOnBorrow}</testOnBorrow>
+                    <validationQuery>${DS.WSO2_CARBON_DB.validationQuery}</validationQuery>
+                    <validationInterval>${DS.WSO2_CARBON_DB.validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS.WSO2_CARBON_DB.defaultAutoCommit}</defaultAutoCommit>
+                </configuration>
+            </definition>
+        </datasource>
+
+        <datasource>
+            <name>WSO2AM_DB</name>
+            <description>The datasource used for API Manager database</description>
+            <jndiConfig>
+                <name>jdbc/WSO2AM_DB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>${DS.WSO2AM_DB.url}</url>
+                    <username>${DS.WSO2AM_DB.username}</username>
+                    <password>${DS.WSO2AM_DB.password}</password>
+                    <driverClassName>${DS.WSO2AM_DB.driverClassName}</driverClassName>
+                    <maxActive>${DS.WSO2AM_DB.maxActive}</maxActive>
+                    <maxWait>${DS.WSO2AM_DB.maxWait}</maxWait>
+                    <minIdle>${DS.WSO2AM_DB.minIdle}</minIdle>
+                    <testOnBorrow>${DS.WSO2AM_DB.testOnBorrow}</testOnBorrow>
+                    <validationQuery>${DS.WSO2AM_DB.validationQuery}</validationQuery>
+                    <validationInterval>${DS.WSO2AM_DB.validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS.WSO2AM_DB.defaultAutoCommit}</defaultAutoCommit>
+                </configuration>
+            </definition>
+        </datasource>
+
+        <datasource>
+            <name>WSO2REG_DB</name>
+            <description>The datasource used for registry</description>
+            <jndiConfig>
+                <name>jdbc/WSO2REG_DB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>${DS.WSO2REG_DB.url}</url>
+                    <username>${DS.WSO2REG_DB.username}</username>
+                    <password>${DS.WSO2REG_DB.password}</password>
+                    <driverClassName>${DS.WSO2REG_DB.driverClassName}</driverClassName>
+                    <maxActive>${DS.WSO2REG_DB.maxActive}</maxActive>
+                    <maxWait>${DS.WSO2REG_DB.maxWait}</maxWait>
+                    <minIdle>${DS.WSO2REG_DB.minIdle}</minIdle>
+                    <testOnBorrow>${DS.WSO2REG_DB.testOnBorrow}</testOnBorrow>
+                    <validationQuery>${DS.WSO2REG_DB.validationQuery}</validationQuery>
+                    <validationInterval>${DS.WSO2REG_DB.validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS.WSO2REG_DB.defaultAutoCommit}</defaultAutoCommit>
+                </configuration>
+            </definition>
+        </datasource>
+
+        <datasource>
+            <name>WSO2UM_DB</name>
+            <description>The datasource used for user management</description>
+            <jndiConfig>
+                <name>jdbc/WSO2UM_DB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>${DS.WSO2UM_DB.url}</url>
+                    <username>${DS.WSO2UM_DB.username}</username>
+                    <password>${DS.WSO2UM_DB.password}</password>
+                    <driverClassName>${DS.WSO2UM_DB.driverClassName}</driverClassName>
+                    <maxActive>${DS.WSO2UM_DB.maxActive}</maxActive>
+                    <maxWait>${DS.WSO2UM_DB.maxWait}</maxWait>
+                    <minIdle>${DS.WSO2UM_DB.minIdle}</minIdle>
+                    <testOnBorrow>${DS.WSO2UM_DB.testOnBorrow}</testOnBorrow>
+                    <validationQuery>${DS.WSO2UM_DB.validationQuery}</validationQuery>
+                    <validationInterval>${DS.WSO2UM_DB.validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS.WSO2UM_DB.defaultAutoCommit}</defaultAutoCommit>
+                </configuration>
+            </definition>
+        </datasource>
+
+    </datasources>
+
+</datasources-configuration>
