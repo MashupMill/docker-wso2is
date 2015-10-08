@@ -10,6 +10,21 @@ getEnvironmentVarsAsProperties () {
     done
 }
 
+appendPropertiesFile () {
+    if [ -f "$1" ]; then
+        echo "Appending properties file $1"
+        cat "$1" >> "$2"
+        echo '' >> "$2"
+    else
+        echo "$1 not found; will skip appending it"
+    fi
+}
+
+# Overlay everything from /extra into /opt/wso2
+if [ -d /extra ] && [ "`ls -A /extra`" ]; then
+    cp -R /extra/* /opt/wso2/
+fi
+
 # Create tmp file
 tmp=`mktemp -t "entrypoint.XXXXXXXXXX"`
 
@@ -17,20 +32,15 @@ tmp=`mktemp -t "entrypoint.XXXXXXXXXX"`
 getEnvironmentVarsAsProperties >> $tmp
 
 # Read in the app.properties file
-[ -f /opt/wso2/app.properties ] && cat /opt/wso2/app.properties >> $tmp
+appendPropertiesFile '/opt/wso2/app.properties' "$tmp"
 
 # Read in the default.properties file
-[ -f /opt/wso2/default.properties ] && cat /opt/wso2/default.properties >> $tmp
+appendPropertiesFile '/opt/wso2/default.properties' "$tmp"
 
 # Run the $tmp file through the property-parser to produce java property arguments
 OPTS=`java -jar /opt/wso2/bin/property-parser-1.0.jar $tmp`
 
 # Remove the tmp file
 rm $tmp
-
-# Overlay everything from /extra into /opt/wso2
-if [ -d /extra ] && [ "`ls -A /extra`" ]; then
-    cp -R /extra/* /opt/wso2/
-fi
 
 /opt/wso2/bin/wso2server.sh "$@" "${OPTS}"
