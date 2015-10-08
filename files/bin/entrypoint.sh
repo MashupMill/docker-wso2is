@@ -38,7 +38,7 @@ appendPropertiesFile '/opt/wso2/app.properties' "$tmp"
 appendPropertiesFile '/opt/wso2/default.properties' "$tmp"
 
 # Run the $tmp file through the property-parser to produce java property arguments
-OPTS=`java -jar /opt/wso2/bin/property-parser-1.0.jar $tmp`
+OPTS=`java -jar /opt/wso2/bin/property-parser-1.1.jar $tmp`
 
 # Remove the tmp file
 rm $tmp
