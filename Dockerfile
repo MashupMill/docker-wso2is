@@ -11,12 +11,11 @@ VOLUME /extra
 # This is the pre-packaged identity server 5.0.0 with api manager 1.9.1
 # Came from https://docs.wso2.com/display/CLUSTER420/Configuring+the+Pre-Packaged+Identity+Server+5.0.0+with+API+Manager+1.9.1
 
-ADD wso2is-5.0.0.zip /opt/wso2is-5.0.0.zip
 
 RUN apt-get update && \
     apt-get install -y zip xmlstarlet && \
     apt-get clean && \
-    #wget -P /opt/ http://product-dist.wso2.com/downloads/api-manager/1.9.1/identity-server/wso2is-5.0.0.zip && \
+    wget -P /opt/ http://product-dist.wso2.com/downloads/api-manager/1.9.1/identity-server/wso2is-5.0.0.zip && \
     unzip /opt/wso2is-5.0.0.zip -d /opt && \
     mv /opt/wso2is-5.0.0 /opt/wso2 && \
     rm /opt/wso2is-5.0.0.zip && \
