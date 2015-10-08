@@ -7,7 +7,7 @@
     <DataSourceName>jdbc/WSO2AM_DB</DataSourceName>
 
     <!-- This parameter is used when adding api management capability to other products like GReg, AS, DSS etc.-->
-    <GatewayType>None</GatewayType>
+    <GatewayType>${APIManager.GatewayType}</GatewayType>
 
     <!-- This parameter is used to enable the securevault support when try to publish endpoint secured APIs. Values should be "true" or "false".
     By default secure vault is disabled.-->
@@ -62,7 +62,7 @@
         <!--
         Signature algorithm. Accepts "SHA256withRSA" or "NONE". To disable signing explicitly specify "NONE".
     -->
-        <SignatureAlgorithm>${APIManager.APIConsumerAuthentication.SignatureAlgorith}</SignatureAlgorithm>
+        <SignatureAlgorithm>${APIManager.APIConsumerAuthentication.SignatureAlgorithm}</SignatureAlgorithm>
 
         <!--
             Enable/Disable JWT generation. Default is false.
@@ -123,7 +123,7 @@
                 <!--
                             Endpoint URLs for the APIs hosted in this API gateway.
                     -->
-                <GatewayEndpoint>http://${carbon.local.ip}:8280,https://${carbon.local.ip}:8243</GatewayEndpoint>
+                <GatewayEndpoint>${APIManager.APIGateway.Environment.hybrid.GatewayEndpoint}</GatewayEndpoint>
             </Environment>
         </Environments>
 
@@ -323,7 +323,7 @@
         <!-- Whether to encrypt tokens when storing in the Database
         Note: If changing this value to true, change the value of <TokenPersistenceProcessor> to
         org.wso2.carbon.identity.oauth.tokenprocessor.EncryptionDecryptionPersistenceProcessor in the identity.xml -->
-        <EncryptPersistedTokens>${APIManager.APIKeyValidator.EncryptPersistedToken}</EncryptPersistedTokens>
+        <EncryptPersistedTokens>${APIManager.APIKeyValidator.EncryptPersistedTokens}</EncryptPersistedTokens>
 
     </APIKeyValidator>
 

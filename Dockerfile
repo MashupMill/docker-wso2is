@@ -11,7 +11,6 @@ VOLUME /extra
 # This is the pre-packaged identity server 5.0.0 with api manager 1.9.1
 # Came from https://docs.wso2.com/display/CLUSTER420/Configuring+the+Pre-Packaged+Identity+Server+5.0.0+with+API+Manager+1.9.1
 
-
 RUN apt-get update && \
     apt-get install -y zip xmlstarlet && \
     apt-get clean && \
