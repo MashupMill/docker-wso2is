@@ -22,7 +22,7 @@
                     <maxWait>${DS.WSO2_CARBON_DB.maxWait}</maxWait>
                     <minIdle>${DS.WSO2_CARBON_DB.minIdle}</minIdle>
                     <testOnBorrow>${DS.WSO2_CARBON_DB.testOnBorrow}</testOnBorrow>
-                    <validationQuery>${DS.WSO2_CARBON_DB.validationQuery}</validationQuery>
+                    <validationQuery>SELECT 1</validationQuery>
                     <validationInterval>${DS.WSO2_CARBON_DB.validationInterval}</validationInterval>
                     <defaultAutoCommit>${DS.WSO2_CARBON_DB.defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
@@ -45,7 +45,7 @@
                     <maxWait>${DS.WSO2AM_DB.maxWait}</maxWait>
                     <minIdle>${DS.WSO2AM_DB.minIdle}</minIdle>
                     <testOnBorrow>${DS.WSO2AM_DB.testOnBorrow}</testOnBorrow>
-                    <validationQuery>${DS.WSO2AM_DB.validationQuery}</validationQuery>
+                    <validationQuery>SELECT 1</validationQuery>
                     <validationInterval>${DS.WSO2AM_DB.validationInterval}</validationInterval>
                     <defaultAutoCommit>${DS.WSO2AM_DB.defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
@@ -68,7 +68,7 @@
                     <maxWait>${DS.WSO2REG_DB.maxWait}</maxWait>
                     <minIdle>${DS.WSO2REG_DB.minIdle}</minIdle>
                     <testOnBorrow>${DS.WSO2REG_DB.testOnBorrow}</testOnBorrow>
-                    <validationQuery>${DS.WSO2REG_DB.validationQuery}</validationQuery>
+                    <validationQuery>SELECT 1</validationQuery>
                     <validationInterval>${DS.WSO2REG_DB.validationInterval}</validationInterval>
                     <defaultAutoCommit>${DS.WSO2REG_DB.defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
@@ -91,7 +91,7 @@
                     <maxWait>${DS.WSO2UM_DB.maxWait}</maxWait>
                     <minIdle>${DS.WSO2UM_DB.minIdle}</minIdle>
                     <testOnBorrow>${DS.WSO2UM_DB.testOnBorrow}</testOnBorrow>
-                    <validationQuery>${DS.WSO2UM_DB.validationQuery}</validationQuery>
+                    <validationQuery>SELECT 1</validationQuery>
                     <validationInterval>${DS.WSO2UM_DB.validationInterval}</validationInterval>
                     <defaultAutoCommit>${DS.WSO2UM_DB.defaultAutoCommit}</defaultAutoCommit>
                 </configuration>

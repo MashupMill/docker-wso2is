@@ -25,7 +25,7 @@ RUN apt-get update && \
     chmod a+x /opt/wso2/bin/*.sh && \
 
     # Download the property parser (to convert a properties file into property arguments)
-    wget -O /opt/wso2/bin/property-parser-1.2.jar https://github.com/MashupMill/property-parser/releases/download/1.2/property-parser-1.2.jar && \
+    wget -O /opt/wso2/bin/property-parser-1.3.jar https://github.com/MashupMill/property-parser/releases/download/1.3/property-parser-1.3.jar && \
 
     # Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ... \
     # this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname \
