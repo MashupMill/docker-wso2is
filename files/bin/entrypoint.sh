@@ -43,4 +43,19 @@ OPTS=`java -jar /opt/wso2/bin/property-parser-1.3.jar $tmp -d`
 # Remove the tmp file
 rm $tmp
 
+PUBLIC_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
+
+xmlstarlet edit --inplace -u "/axisconfig/clustering/@enable" -v "${CLUSTERING_ENABLED:-false}" /opt/wso2/repository/conf/axis2/axis2.xml
+xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']/@name" -v "${CLUSTER_DOMAIN:-wso2.carbon.domain}" /opt/wso2/repository/conf/axis2/axis2.xml
+xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='membershipScheme']" -v "${CLUSTERING_MEMBERSHIP_SCHEME:-multicast}" /opt/wso2/repository/conf/axis2/axis2.xml
+xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$PUBLIC_IP}" /opt/wso2/repository/conf/axis2/axis2.xml
+
+
+
+# Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ...
+# this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname
+xmlstarlet edit --inplace -s "/axisconfig/transportSender[@name='https']" -t elem -n parameter -v "${HTTPS_HOSTNAME_VERIFIER:-DefaultAndLocalhost}" \
+           -i "/axisconfig/transportSender[@name='https']/parameter[not(@name)]" -t attr -n name -v HostnameVerifier \
+           /opt/wso2/repository/conf/axis2/axis2.xml
+
 /opt/wso2/bin/wso2server.sh "$@" "${OPTS}"

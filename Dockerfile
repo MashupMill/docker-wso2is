@@ -25,13 +25,7 @@ RUN apt-get update && \
     chmod a+x /opt/wso2/bin/*.sh && \
 
     # Download the property parser (to convert a properties file into property arguments)
-    wget -O /opt/wso2/bin/property-parser-1.3.jar https://github.com/MashupMill/property-parser/releases/download/1.3/property-parser-1.3.jar && \
-
-    # Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ... \
-    # this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname \
-    xmlstarlet edit --inplace -s "/axisconfig/transportSender[@name='https']" -t elem -n parameter -v AllowAll \
-           -i "/axisconfig/transportSender[@name='https']/parameter[not(@name)]" -t attr -n name -v HostnameVerifier \
-           /opt/wso2/repository/conf/axis2/axis2.xml
+    wget -O /opt/wso2/bin/property-parser-1.3.jar https://github.com/MashupMill/property-parser/releases/download/1.3/property-parser-1.3.jar
 
 WORKDIR /opt/wso2/
 EXPOSE 9443
