@@ -50,12 +50,28 @@ xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']/@
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='membershipScheme']" -v "${CLUSTERING_MEMBERSHIP_SCHEME:-multicast}" /opt/wso2/repository/conf/axis2/axis2.xml
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$PUBLIC_IP}" /opt/wso2/repository/conf/axis2/axis2.xml
 
-
-
 # Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ...
 # this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname
 xmlstarlet edit --inplace -s "/axisconfig/transportSender[@name='https']" -t elem -n parameter -v "${HTTPS_HOSTNAME_VERIFIER:-DefaultAndLocalhost}" \
            -i "/axisconfig/transportSender[@name='https']/parameter[not(@name)]" -t attr -n name -v HostnameVerifier \
            /opt/wso2/repository/conf/axis2/axis2.xml
+
+
+# Set the http proxy port if provided
+xmlstarlet edit --inplace --delete "/Server/Service/Connector[not(@secure)]/@proxyPort" /opt/wso2/repository/conf/tomcat/catalina-server.xml
+[ "${HTTP_PROXY_PORT}" != "" ] &&  xmlstarlet edit --inplace --insert "/Server/Service/Connector[not(@secure)]" --type attr -n proxyPort --value "${HTTP_PROXY_PORT}" /opt/wso2/repository/conf/tomcat/catalina-server.xml
+
+# Set the https proxy port if provided
+xmlstarlet edit --inplace --delete "/Server/Service/Connector[@secure='true']/@proxyPort" /opt/wso2/repository/conf/tomcat/catalina-server.xml
+[ "${HTTPS_PROXY_PORT}" != "" ] &&  xmlstarlet edit --inplace --insert "/Server/Service/Connector[@secure='true']" --type attr -n proxyPort --value "${HTTPS_PROXY_PORT}" /opt/wso2/repository/conf/tomcat/catalina-server.xml
+
+if [ "$PROFILE" != "" ]; then
+    OPTS="-Dprofile=$PROFILE $OPTS"
+fi
+
+if [ -f "/opt/wso2/bin/extra.sh" ]; then
+    chmod a+x /opt/wso2/bin/extra.sh
+    /opt/wso2/bin/extra.sh
+fi
 
 /opt/wso2/bin/wso2server.sh "$@" "${OPTS}"
