@@ -25,7 +25,7 @@ RUN apt-get update && \
     chmod a+x /opt/wso2/bin/*.sh && \
 
     # Download the property parser (to convert a properties file into property arguments)
-    wget -O /opt/wso2/bin/property-parser-1.3.jar https://github.com/MashupMill/property-parser/releases/download/1.3/property-parser-1.3.jar
+    wget -O /opt/wso2/bin/property-parser.jar https://github.com/MashupMill/property-parser/releases/download/1.5/property-parser-1.5.jar
 
 WORKDIR /opt/wso2/
 EXPOSE 9443
