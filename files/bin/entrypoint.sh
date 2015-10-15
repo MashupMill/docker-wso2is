@@ -74,4 +74,6 @@ if [ -f "/opt/wso2/bin/extra.sh" ]; then
     /opt/wso2/bin/extra.sh
 fi
 
+sleep ${DELAY_START:-0}
+
 /opt/wso2/bin/wso2server.sh "$@" "${OPTS}"
