@@ -70,7 +70,7 @@ DEPSYNC_REPO=`echo "${DEPSYNC_URL:7}"`
 
 if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO" && ! ("`ls -A $DEPSYNC_REPO`") ]]; then
     echo "initializing deployment syncronization repo at $DEPSYNC_REPO"
-    svnadmin create --compatible-version 1.6 "$DEPSYNC_REPO"
+    svnadmin create "$DEPSYNC_REPO"
     sed -E -i 's/(# )?anon-access.*/anon-access = none/' "$DEPSYNC_REPO/conf/svnserve.conf"
     sed -E -i 's/(# )?auth-access.*/auth-access = write/' "$DEPSYNC_REPO/conf/svnserve.conf"
     sed -E -i 's/(# )?password-db.*/password-db = passwd/' "$DEPSYNC_REPO/conf/svnserve.conf"
@@ -108,7 +108,12 @@ if [ "$PROFILE" != "" ]; then
     case "$PROFILE" in
         worker|gateway-worker)
             # Empty the contents of the /repository/deployment/server directory if we are a worker with DeploymentSynchronization turned on
-            [ "$DEPSYNC_ON" == "true" ] && rm -fr "${CARBON_HOME}/repository/deployment/server/*"
+            if [[ "$DEPSYNC_ON" == "true" && ! -d "$CARBON_HOME/repository/deployment/server/.svn" ]]; then
+                #rm -fr "${CARBON_HOME}/repository/deployment/server/modulemetafiles"
+                #rm -fr "${CARBON_HOME}/repository/deployment/server/servicemetafiles"
+                #rm -fr "${CARBON_HOME}/repository/deployment/server/webapps"
+                rm -fr "${CARBON_HOME}/repository/deployment/server/*"
+            fi
             ;;
     esac
 fi
