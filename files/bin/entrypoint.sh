@@ -31,33 +31,54 @@ template () {
     echo "done"
 }
 
+get-prop () {
+    echo "\${$1}" | java -jar "${CARBON_HOME}/bin/property-parser.jar" template "$2"
+}
+
 # Overlay everything from /extra into /opt/wso2
 if [ -d /extra ] && [ "`ls -A /extra`" ]; then
     cp -R /extra/* ${CARBON_HOME}/
 fi
 
 # Create tmp file
-tmp=`mktemp -t "entrypoint.XXXXXXXXXX"`
+PROPERTIES_FILE=`mktemp -t "entrypoint.XXXXXXXXXX"`
 
 # Read in the default.properties file
-appendPropertiesFile "${CARBON_HOME}/default.properties" "$tmp"
+appendPropertiesFile "${CARBON_HOME}/default.properties" "$PROPERTIES_FILE"
 
 # Read in the app.properties file
-appendPropertiesFile "${CARBON_HOME}/app.properties" "$tmp"
+appendPropertiesFile "${CARBON_HOME}/app.properties" "$PROPERTIES_FILE"
 
 # Read in the environment variables last (they take priority)
-getEnvironmentVarsAsProperties >> $tmp
+getEnvironmentVarsAsProperties >> $PROPERTIES_FILE
 
-# Run the $tmp file through the property-parser to produce java property arguments
-#OPTS=`java -jar ${CARBON_HOME}/bin/property-parser.jar $tmp -d`
+# Run the $PROPERTIES_FILE file through the property-parser to produce java property arguments
+#OPTS=`java -jar ${CARBON_HOME}/bin/property-parser.jar $PROPERTIES_FILE -d`
 
+# Go through each file in the templates directory and run it through the property-parser templating tool to replace
+# instances of ${Property.Name} with the actual property value.
 cd "${CARBON_HOME}/templates"
 find -type f | while read fname; do
-  template "$fname" "$tmp"
+  template "$fname" "$PROPERTIES_FILE"
 done
 
-# Remove the tmp file
-rm $tmp
+# If we have deployment synchronizer turned on and its pointing to a local svn repo (presumably it is a shared mount)
+# and its an empty directory, we need to initialize the svn repo
+DEPSYNC_ON=`get-prop Server.DeploymentSynchronizer.Enabled ${PROPERTIES_FILE}`
+DEPSYNC_URL=`get-prop Server.DeploymentSynchronizer.SvnUrl ${PROPERTIES_FILE}`
+DEPSYNC_REPO=`echo "${DEPSYNC_URL:7}"`
+
+if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO" && ! ("`ls -A $DEPSYNC_REPO`") ]]; then
+    echo "initializing deployment syncronization repo at $DEPSYNC_REPO"
+    svnadmin create --compatible-version 1.6 "$DEPSYNC_REPO"
+    sed -E -i 's/(# )?anon-access.*/anon-access = none/' "$DEPSYNC_REPO/conf/svnserve.conf"
+    sed -E -i 's/(# )?auth-access.*/auth-access = write/' "$DEPSYNC_REPO/conf/svnserve.conf"
+    sed -E -i 's/(# )?password-db.*/password-db = passwd/' "$DEPSYNC_REPO/conf/svnserve.conf"
+    echo `get-prop Server.DeploymentSynchronizer.SvnUser ${PROPERTIES_FILE}`:`get-prop Server.DeploymentSynchronizer.SvnPassword ${PROPERTIES_FILE}` >> "$DEPSYNC_REPO/conf/passwd"
+fi
+
+# Remove the PROPERTIES_FILE file
+rm $PROPERTIES_FILE
 
 PUBLIC_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
 
@@ -83,6 +104,13 @@ xmlstarlet edit --inplace --delete "/Server/Service/Connector[@secure='true']/@p
 
 if [ "$PROFILE" != "" ]; then
     OPTS="-Dprofile=$PROFILE $OPTS"
+
+    case "$PROFILE" in
+        worker|gateway-worker)
+            # Empty the contents of the /repository/deployment/server directory if we are a worker with DeploymentSynchronization turned on
+            [ "$DEPSYNC_ON" == "true" ] && rm -fr "${CARBON_HOME}/repository/deployment/server/*"
+            ;;
+    esac
 fi
 
 if [ -f "${CARBON_HOME}/bin/extra.sh" ]; then
