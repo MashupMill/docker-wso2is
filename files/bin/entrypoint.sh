@@ -67,6 +67,9 @@ done
 DEPSYNC_ON=`get-prop Server.DeploymentSynchronizer.Enabled ${PROPERTIES_FILE}`
 DEPSYNC_URL=`get-prop Server.DeploymentSynchronizer.SvnUrl ${PROPERTIES_FILE}`
 DEPSYNC_REPO=`echo "${DEPSYNC_URL:7}"`
+DEPSYNC_USER=`get-prop Server.DeploymentSynchronizer.SvnUser ${PROPERTIES_FILE}`
+DEPSYNC_PASS=`get-prop Server.DeploymentSynchronizer.SvnPassword ${PROPERTIES_FILE}`
+DEPSYNC_PATH=${DEPSYNC_PATH:--1234}
 
 if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO" && ! ("`ls -A $DEPSYNC_REPO`") ]]; then
     echo "initializing deployment syncronization repo at $DEPSYNC_REPO"
@@ -74,7 +77,15 @@ if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO
     sed -E -i 's/(# )?anon-access.*/anon-access = none/' "$DEPSYNC_REPO/conf/svnserve.conf"
     sed -E -i 's/(# )?auth-access.*/auth-access = write/' "$DEPSYNC_REPO/conf/svnserve.conf"
     sed -E -i 's/(# )?password-db.*/password-db = passwd/' "$DEPSYNC_REPO/conf/svnserve.conf"
-    echo `get-prop Server.DeploymentSynchronizer.SvnUser ${PROPERTIES_FILE}`:`get-prop Server.DeploymentSynchronizer.SvnPassword ${PROPERTIES_FILE}` >> "$DEPSYNC_REPO/conf/passwd"
+    echo "$DEPSYNC_USER:$DEPSYNC_PASS" >> "$DEPSYNC_REPO/conf/passwd"
+fi
+
+if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_PATH" != "" && "$DEPSYNC_PATH" != "false" ]]; then
+    if [[ "`svn ls --username "$DEPSYNC_USER" --password "$DEPSYNC_PASS" $DEPSYNC_URL/$DEPSYNC_PATH`" ]]; then
+        echo "DepSync dir is not empty, we will check it out and move it in place"
+        rm -fr "${CARBON_HOME}/repository/deployment/server"
+        svn checkout --username "$DEPSYNC_USER" --password "$DEPSYNC_PASS" --quiet "$DEPSYNC_URL/$DEPSYNC_PATH" "${CARBON_HOME}/repository/deployment/server"
+    fi
 fi
 
 # Remove the PROPERTIES_FILE file
@@ -104,18 +115,6 @@ xmlstarlet edit --inplace --delete "/Server/Service/Connector[@secure='true']/@p
 
 if [ "$PROFILE" != "" ]; then
     OPTS="-Dprofile=$PROFILE $OPTS"
-
-    case "$PROFILE" in
-        worker|gateway-worker)
-            # Empty the contents of the /repository/deployment/server directory if we are a worker with DeploymentSynchronization turned on
-            if [[ "$DEPSYNC_ON" == "true" && ! -d "$CARBON_HOME/repository/deployment/server/.svn" ]]; then
-                #rm -fr "${CARBON_HOME}/repository/deployment/server/modulemetafiles"
-                #rm -fr "${CARBON_HOME}/repository/deployment/server/servicemetafiles"
-                #rm -fr "${CARBON_HOME}/repository/deployment/server/webapps"
-                rm -fr "${CARBON_HOME}/repository/deployment/server/*"
-            fi
-            ;;
-    esac
 fi
 
 if [ -f "${CARBON_HOME}/bin/extra.sh" ]; then
