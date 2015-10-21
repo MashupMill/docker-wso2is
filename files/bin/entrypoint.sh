@@ -6,7 +6,7 @@ getEnvironmentVarsAsProperties () {
     # Take any environment variables prefixed with APP_, remove the APP_ prefix, then change underscores to periods
     for name in `printenv | grep -E -o '^APP_[A-Za-z0-9_]+'`; do
         if [ "$name" != "" ]; then
-            prop=`echo $name | awk '{gsub(/^APP_/, "");gsub("_", "."); print $0}'`
+            prop=`echo $name | awk '{gsub(/^APP_/, "");gsub("__", "."); print $0}'`
             echo "$prop=${!name}"
         fi
     done
