@@ -1,6 +1,7 @@
 FROM java:7
 
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64\
+    MOUNT_REGISTRY=false
 
 # Copy all the custom files to /files
 COPY files /files

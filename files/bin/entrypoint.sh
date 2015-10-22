@@ -40,6 +40,8 @@ if [ -d /extra ] && [ "`ls -A /extra`" ]; then
     cp -R /extra/* ${CARBON_HOME}/
 fi
 
+CONTAINER_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
+
 # Create tmp file
 PROPERTIES_FILE=`mktemp -t "entrypoint.XXXXXXXXXX"`
 
@@ -51,6 +53,16 @@ appendPropertiesFile "${CARBON_HOME}/app.properties" "$PROPERTIES_FILE"
 
 # Read in the environment variables last (they take priority)
 getEnvironmentVarsAsProperties >> $PROPERTIES_FILE
+
+echo "container.ip=$CONTAINER_IP" >> $PROPERTIES_FILE
+
+if [[ "$MOUNT_REGISTRY" == "true" ]]; then
+    echo 'wso2registry.mount.prefix=
+wso2registry.mount.suffix=' >> $PROPERTIES_FILE
+else
+    echo 'wso2registry.mount.prefix=<!--
+wso2registry.mount.suffix=-->' >> $PROPERTIES_FILE
+fi
 
 # Run the $PROPERTIES_FILE file through the property-parser to produce java property arguments
 #OPTS=`java -jar ${CARBON_HOME}/bin/property-parser.jar $PROPERTIES_FILE -d`
@@ -92,12 +104,10 @@ fi
 # Remove the PROPERTIES_FILE file
 rm $PROPERTIES_FILE
 
-PUBLIC_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
-
 xmlstarlet edit --inplace -u "/axisconfig/clustering/@enable" -v "${CLUSTERING_ENABLED:-false}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']/@name" -v "${CLUSTER_DOMAIN:-wso2.carbon.domain}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='membershipScheme']" -v "${CLUSTERING_MEMBERSHIP_SCHEME:-multicast}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$PUBLIC_IP}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
+xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$CONTAINER_IP}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 
 # Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ...
 # this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname

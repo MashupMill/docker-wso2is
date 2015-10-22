@@ -326,6 +326,7 @@
         </task>
     </tasks-->
 
+    ${wso2registry.mount.prefix}
     <dbConfig name="govregistry">
         <dataSource>jdbc/WSO2REG_DB</dataSource>
     </dbConfig>
@@ -345,5 +346,6 @@
         <instanceId>gov</instanceId>
         <targetPath>/_system/config</targetPath>
     </mount>
+    ${wso2registry.mount.suffix}
 
 </wso2registry>
