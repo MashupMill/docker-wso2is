@@ -65,13 +65,14 @@ done
 # If we have deployment synchronizer turned on and its pointing to a local svn repo (presumably it is a shared mount)
 # and its an empty directory, we need to initialize the svn repo
 DEPSYNC_ON=`get-prop Server.DeploymentSynchronizer.Enabled ${PROPERTIES_FILE}`
+DEPSYNC_WRITE=`get-prop Server.DeploymentSynchronizer.AutoCommit ${PROPERTIES_FILE}`
 DEPSYNC_URL=`get-prop Server.DeploymentSynchronizer.SvnUrl ${PROPERTIES_FILE}`
 DEPSYNC_REPO=`echo "${DEPSYNC_URL:7}"`
 DEPSYNC_USER=`get-prop Server.DeploymentSynchronizer.SvnUser ${PROPERTIES_FILE}`
 DEPSYNC_PASS=`get-prop Server.DeploymentSynchronizer.SvnPassword ${PROPERTIES_FILE}`
 DEPSYNC_PATH=${DEPSYNC_PATH:--1234}
 
-if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO" && ! ("`ls -A $DEPSYNC_REPO`") ]]; then
+if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_WRITE" == "true" && "$DEPSYNC_URL" == file://* && -d "$DEPSYNC_REPO" && ! ("`ls -A $DEPSYNC_REPO`") ]]; then
     echo "initializing deployment syncronization repo at $DEPSYNC_REPO"
     svnadmin create "$DEPSYNC_REPO"
     sed -E -i 's/(# )?anon-access.*/anon-access = none/' "$DEPSYNC_REPO/conf/svnserve.conf"
