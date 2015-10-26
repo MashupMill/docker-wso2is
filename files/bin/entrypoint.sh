@@ -94,6 +94,8 @@ if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_WRITE" == "true" && "$DEPSYNC_URL" ==
 fi
 
 if [[ "$DEPSYNC_ON" == "true" && "$DEPSYNC_PATH" != "" && "$DEPSYNC_PATH" != "false" ]]; then
+    svn --help >> /dev/null
+    sed -E -i 's/(# )?store-plaintext-passwords.*/store-plaintext-passwords = no/' ~/.subversion/servers
     if [[ "`svn ls --username "$DEPSYNC_USER" --password "$DEPSYNC_PASS" $DEPSYNC_URL/$DEPSYNC_PATH`" ]]; then
         echo "DepSync dir is not empty, we will check it out and move it in place"
         rm -fr "${CARBON_HOME}/repository/deployment/server"
