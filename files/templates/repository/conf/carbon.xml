@@ -299,15 +299,15 @@
         -->
         <KeyStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/repository/resources/security/wso2carbon.jks</Location>
+            <Location>${carbon.home}/${KeyStore.Primary.Location}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>JKS</Type>
+            <Type>${KeyStore.Primary.Type}</Type>
             <!-- Keystore password-->
-            <Password>wso2carbon</Password>
+            <Password>${KeyStore.Primary.Password}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>wso2carbon</KeyAlias>
+            <KeyAlias>${KeyStore.Primary.KeyAlias}</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>wso2carbon</KeyPassword>
+            <KeyPassword>${KeyStore.Primary.KeyPassword}</KeyPassword>
         </KeyStore>
 
         <!--
@@ -315,15 +315,15 @@
        -->
         <RegistryKeyStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/repository/resources/security/wso2carbon.jks</Location>
+            <Location>${carbon.home}/${KeyStore.Registry.Location}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>JKS</Type>
+            <Type>${KeyStore.Registry.Type}</Type>
             <!-- Keystore password-->
-            <Password>wso2carbon</Password>
+            <Password>${KeyStore.Registry.Password}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>wso2carbon</KeyAlias>
+            <KeyAlias>${KeyStore.Registry.KeyAlias}</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>wso2carbon</KeyPassword>
+            <KeyPassword>${KeyStore.Registry.KeyPassword}</KeyPassword>
         </RegistryKeyStore>
 
         <!--
@@ -332,11 +332,11 @@
         -->
         <TrustStore>
             <!-- trust-store file location -->
-            <Location>${carbon.home}/repository/resources/security/client-truststore.jks</Location>
+            <Location>${carbon.home}/${TrustStore.Location}</Location>
             <!-- trust-store type (JKS/PKCS12 etc.) -->
-            <Type>JKS</Type>
+            <Type>${TrustStore.Type}</Type>
             <!-- trust-store password -->
-            <Password>wso2carbon</Password>
+            <Password>${TrustStore.Password}</Password>
         </TrustStore>
 
         <!--
