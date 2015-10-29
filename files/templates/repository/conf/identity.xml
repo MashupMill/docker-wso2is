@@ -20,22 +20,22 @@
         <!-- If the identity database is created from another place and if it is
             required to skip schema initialization during the server start up, set the
             following property to "true". -->
-        <SkipDBSchemaCreation>${Server.JDBCPersistenceManager.SkipDBSchemaCreation}</SkipDBSchemaCreation>
+        <SkipDBSchemaCreation>${Server_JDBCPersistenceManager_SkipDBSchemaCreation}</SkipDBSchemaCreation>
     </JDBCPersistenceManager>
 
     <!-- Security configurations -->
     <Security>
         <UserTrustedRPStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/${KeyStore.UserRP.Location}</Location>
+            <Location>${carbon.home}/${KeyStore_UserRP_Location}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>${KeyStore.UserRP.Type}</Type>
+            <Type>${KeyStore_UserRP_Type}</Type>
             <!-- Keystore password-->
-            <Password>${KeyStore.UserRP.Password}</Password>
+            <Password>${KeyStore_UserRP_Password}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>${KeyStore.UserRP.KeyAlias}</KeyAlias>
+            <KeyAlias>${KeyStore_UserRP_KeyAlias}</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>${KeyStore.UserRP.KeyPassword}</KeyPassword>
+            <KeyPassword>${KeyStore_UserRP_KeyPassword}</KeyPassword>
         </UserTrustedRPStore>
 
         <!-- The directory under which all other KeyStore files will be stored -->
@@ -238,8 +238,8 @@
             <ReceivePort>${Ports.ThriftEntitlementReceivePort}</ReceivePort>
             <ClientTimeout>10000</ClientTimeout>
             <KeyStore>
-                <Location>${carbon.home}/${KeyStore.Primary.Location}</Location>
-                <Password>${KeyStore.Primary.Password}</Password>
+                <Location>${carbon.home}/${KeyStore_Primary_Location}</Location>
+                <Password>${KeyStore_Primary_Password}</Password>
             </KeyStore>
         </ThirftBasedEntitlementConfig>
     </EntitlementSettings>

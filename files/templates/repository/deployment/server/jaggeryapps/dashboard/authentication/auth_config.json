@@ -8,11 +8,11 @@
 		"SAML.EnableAssertionSigning" : "true",
 		"SAML.EnableRequestSigning" : "true",
 		"SAML.SSOAgentCredentialImplClass" : "org.wso2.carbon.identity.sso.agent.saml.SSOAgentKeyStoreCredential",
-		"SAML.KeyStorePassword" : "${KeyStore.Primary.Password}",
+		"SAML.KeyStorePassword" : "${KeyStore_Primary_Password}",
 		"SAML.IdPCertAlias" : "wso2carbon",
-		"SAML.PrivateKeyAlias": "${KeyStore.Primary.KeyAlias}",
-		"SAML.PrivateKeyPassword" : "${KeyStore.Primary.KeyPassword}",
-		"SAML.KeyStore" : "{carbon.home}/${KeyStore.Primary.Location}"
+		"SAML.PrivateKeyAlias": "${KeyStore_Primary_KeyAlias}",
+		"SAML.PrivateKeyPassword" : "${KeyStore_Primary_KeyPassword}",
+		"SAML.KeyStore" : "{carbon.home}/${KeyStore_Primary_Location}"
 		
 	}
 }

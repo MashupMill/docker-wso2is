@@ -45,12 +45,12 @@
        This is will become part of the End Point Reference of the
        services deployed on this server instance.
     -->
-    <HostName>${Server.HostName}</HostName>
+    <HostName>${Server_HostName}</HostName>
 
     <!--
     Host name to be used for the Carbon management console
     -->
-    <MgtHostName>${Server.MgtHostName}</MgtHostName>
+    <MgtHostName>${Server_MgtHostName}</MgtHostName>
 
     <!--
         The URL of the back end server. This is where the admin services are hosted and
@@ -287,7 +287,7 @@
     <!--
       Enable following config to allow Emails as usernames.
     -->
-    <EnableEmailUserName>${Server.EnableEmailUserName}</EnableEmailUserName>
+    <EnableEmailUserName>${Server_EnableEmailUserName}</EnableEmailUserName>
 
     <!--
       Security configurations
@@ -299,15 +299,15 @@
         -->
         <KeyStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/${KeyStore.Primary.Location}</Location>
+            <Location>${carbon.home}/${KeyStore_Primary_Location}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>${KeyStore.Primary.Type}</Type>
+            <Type>${KeyStore_Primary_Type}</Type>
             <!-- Keystore password-->
-            <Password>${KeyStore.Primary.Password}</Password>
+            <Password>${KeyStore_Primary_Password}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>${KeyStore.Primary.KeyAlias}</KeyAlias>
+            <KeyAlias>${KeyStore_Primary_KeyAlias}</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>${KeyStore.Primary.KeyPassword}</KeyPassword>
+            <KeyPassword>${KeyStore_Primary_KeyPassword}</KeyPassword>
         </KeyStore>
 
         <!--
@@ -315,15 +315,15 @@
        -->
         <RegistryKeyStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/${KeyStore.Registry.Location}</Location>
+            <Location>${carbon.home}/${KeyStore_Registry_Location}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>${KeyStore.Registry.Type}</Type>
+            <Type>${KeyStore_Registry_Type}</Type>
             <!-- Keystore password-->
-            <Password>${KeyStore.Registry.Password}</Password>
+            <Password>${KeyStore_Registry_Password}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>${KeyStore.Registry.KeyAlias}</KeyAlias>
+            <KeyAlias>${KeyStore_Registry_KeyAlias}</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>${KeyStore.Registry.KeyPassword}</KeyPassword>
+            <KeyPassword>${KeyStore_Registry_KeyPassword}</KeyPassword>
         </RegistryKeyStore>
 
         <!--
@@ -332,11 +332,11 @@
         -->
         <TrustStore>
             <!-- trust-store file location -->
-            <Location>${carbon.home}/${TrustStore.Location}</Location>
+            <Location>${carbon.home}/${TrustStore_Location}</Location>
             <!-- trust-store type (JKS/PKCS12 etc.) -->
-            <Type>${TrustStore.Type}</Type>
+            <Type>${TrustStore_Type}</Type>
             <!-- trust-store password -->
-            <Password>${TrustStore.Password}</Password>
+            <Password>${TrustStore_Password}</Password>
         </TrustStore>
 
         <!--
@@ -510,14 +510,14 @@
 	and in  worker nodes set only AutoCheckout to true.
     -->
     <DeploymentSynchronizer>
-        <Enabled>${Server.DeploymentSynchronizer.Enabled}</Enabled>
-        <AutoCommit>${Server.DeploymentSynchronizer.AutoCommit}</AutoCommit>
-        <AutoCheckout>${Server.DeploymentSynchronizer.AutoCheckout}</AutoCheckout>
-        <RepositoryType>${Server.DeploymentSynchronizer.RepositoryType}</RepositoryType>
-        <SvnUrl>${Server.DeploymentSynchronizer.SvnUrl}</SvnUrl>
-        <SvnUser>${Server.DeploymentSynchronizer.SvnUser}</SvnUser>
-        <SvnPassword>${Server.DeploymentSynchronizer.SvnPassword}</SvnPassword>
-        <SvnUrlAppendTenantId>${Server.DeploymentSynchronizer.SvnUrlAppendTenantId}</SvnUrlAppendTenantId>
+        <Enabled>${Server_DeploymentSynchronizer_Enabled}</Enabled>
+        <AutoCommit>${Server_DeploymentSynchronizer_AutoCommit}</AutoCommit>
+        <AutoCheckout>${Server_DeploymentSynchronizer_AutoCheckout}</AutoCheckout>
+        <RepositoryType>${Server_DeploymentSynchronizer_RepositoryType}</RepositoryType>
+        <SvnUrl>${Server_DeploymentSynchronizer_SvnUrl}</SvnUrl>
+        <SvnUser>${Server_DeploymentSynchronizer_SvnUser}</SvnUser>
+        <SvnPassword>${Server_DeploymentSynchronizer_SvnPassword}</SvnPassword>
+        <SvnUrlAppendTenantId>${Server_DeploymentSynchronizer_SvnUrlAppendTenantId}</SvnUrlAppendTenantId>
     </DeploymentSynchronizer>
 
     <!-- Deployment Synchronizer Configuration. Uncomment the following section when running with "registry based" dep sync.

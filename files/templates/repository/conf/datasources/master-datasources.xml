@@ -14,17 +14,17 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>${DS.WSO2_CARBON_DB.url}</url>
-                    <username>${DS.WSO2_CARBON_DB.username}</username>
-                    <password>${DS.WSO2_CARBON_DB.password}</password>
-                    <driverClassName>${DS.WSO2_CARBON_DB.driverClassName}</driverClassName>
-                    <maxActive>${DS.WSO2_CARBON_DB.maxActive}</maxActive>
-                    <maxWait>${DS.WSO2_CARBON_DB.maxWait}</maxWait>
-                    <minIdle>${DS.WSO2_CARBON_DB.minIdle}</minIdle>
-                    <testOnBorrow>${DS.WSO2_CARBON_DB.testOnBorrow}</testOnBorrow>
+                    <url>${DS_WSO2CARBONDB_url}</url>
+                    <username>${DS_WSO2CARBONDB_username}</username>
+                    <password>${DS_WSO2CARBONDB_password}</password>
+                    <driverClassName>${DS_WSO2CARBONDB_driverClassName}</driverClassName>
+                    <maxActive>${DS_WSO2CARBONDB_maxActive}</maxActive>
+                    <maxWait>${DS_WSO2CARBONDB_maxWait}</maxWait>
+                    <minIdle>${DS_WSO2CARBONDB_minIdle}</minIdle>
+                    <testOnBorrow>${DS_WSO2CARBONDB_testOnBorrow}</testOnBorrow>
                     <validationQuery>SELECT 1</validationQuery>
-                    <validationInterval>${DS.WSO2_CARBON_DB.validationInterval}</validationInterval>
-                    <defaultAutoCommit>${DS.WSO2_CARBON_DB.defaultAutoCommit}</defaultAutoCommit>
+                    <validationInterval>${DS_WSO2CARBONDB_validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS_WSO2CARBONDB_defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
             </definition>
         </datasource>
@@ -37,17 +37,17 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>${DS.WSO2AM_DB.url}</url>
-                    <username>${DS.WSO2AM_DB.username}</username>
-                    <password>${DS.WSO2AM_DB.password}</password>
-                    <driverClassName>${DS.WSO2AM_DB.driverClassName}</driverClassName>
-                    <maxActive>${DS.WSO2AM_DB.maxActive}</maxActive>
-                    <maxWait>${DS.WSO2AM_DB.maxWait}</maxWait>
-                    <minIdle>${DS.WSO2AM_DB.minIdle}</minIdle>
-                    <testOnBorrow>${DS.WSO2AM_DB.testOnBorrow}</testOnBorrow>
+                    <url>${DS_WSO2AMDB_url}</url>
+                    <username>${DS_WSO2AMDB_username}</username>
+                    <password>${DS_WSO2AMDB_password}</password>
+                    <driverClassName>${DS_WSO2AMDB_driverClassName}</driverClassName>
+                    <maxActive>${DS_WSO2AMDB_maxActive}</maxActive>
+                    <maxWait>${DS_WSO2AMDB_maxWait}</maxWait>
+                    <minIdle>${DS_WSO2AMDB_minIdle}</minIdle>
+                    <testOnBorrow>${DS_WSO2AMDB_testOnBorrow}</testOnBorrow>
                     <validationQuery>SELECT 1</validationQuery>
-                    <validationInterval>${DS.WSO2AM_DB.validationInterval}</validationInterval>
-                    <defaultAutoCommit>${DS.WSO2AM_DB.defaultAutoCommit}</defaultAutoCommit>
+                    <validationInterval>${DS_WSO2AMDB_validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS_WSO2AMDB_defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
             </definition>
         </datasource>
@@ -60,17 +60,17 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>${DS.WSO2REG_DB.url}</url>
-                    <username>${DS.WSO2REG_DB.username}</username>
-                    <password>${DS.WSO2REG_DB.password}</password>
-                    <driverClassName>${DS.WSO2REG_DB.driverClassName}</driverClassName>
-                    <maxActive>${DS.WSO2REG_DB.maxActive}</maxActive>
-                    <maxWait>${DS.WSO2REG_DB.maxWait}</maxWait>
-                    <minIdle>${DS.WSO2REG_DB.minIdle}</minIdle>
-                    <testOnBorrow>${DS.WSO2REG_DB.testOnBorrow}</testOnBorrow>
+                    <url>${DS_WSO2REGDB_url}</url>
+                    <username>${DS_WSO2REGDB_username}</username>
+                    <password>${DS_WSO2REGDB_password}</password>
+                    <driverClassName>${DS_WSO2REGDB_driverClassName}</driverClassName>
+                    <maxActive>${DS_WSO2REGDB_maxActive}</maxActive>
+                    <maxWait>${DS_WSO2REGDB_maxWait}</maxWait>
+                    <minIdle>${DS_WSO2REGDB_minIdle}</minIdle>
+                    <testOnBorrow>${DS_WSO2REGDB_testOnBorrow}</testOnBorrow>
                     <validationQuery>SELECT 1</validationQuery>
-                    <validationInterval>${DS.WSO2REG_DB.validationInterval}</validationInterval>
-                    <defaultAutoCommit>${DS.WSO2REG_DB.defaultAutoCommit}</defaultAutoCommit>
+                    <validationInterval>${DS_WSO2REGDB_validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS_WSO2REGDB_defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
             </definition>
         </datasource>
@@ -83,17 +83,17 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>${DS.WSO2UM_DB.url}</url>
-                    <username>${DS.WSO2UM_DB.username}</username>
-                    <password>${DS.WSO2UM_DB.password}</password>
-                    <driverClassName>${DS.WSO2UM_DB.driverClassName}</driverClassName>
-                    <maxActive>${DS.WSO2UM_DB.maxActive}</maxActive>
-                    <maxWait>${DS.WSO2UM_DB.maxWait}</maxWait>
-                    <minIdle>${DS.WSO2UM_DB.minIdle}</minIdle>
-                    <testOnBorrow>${DS.WSO2UM_DB.testOnBorrow}</testOnBorrow>
+                    <url>${DS_WSO2UMDB_url}</url>
+                    <username>${DS_WSO2UMDB_username}</username>
+                    <password>${DS_WSO2UMDB_password}</password>
+                    <driverClassName>${DS_WSO2UMDB_driverClassName}</driverClassName>
+                    <maxActive>${DS_WSO2UMDB_maxActive}</maxActive>
+                    <maxWait>${DS_WSO2UMDB_maxWait}</maxWait>
+                    <minIdle>${DS_WSO2UMDB_minIdle}</minIdle>
+                    <testOnBorrow>${DS_WSO2UMDB_testOnBorrow}</testOnBorrow>
                     <validationQuery>SELECT 1</validationQuery>
-                    <validationInterval>${DS.WSO2UM_DB.validationInterval}</validationInterval>
-                    <defaultAutoCommit>${DS.WSO2UM_DB.defaultAutoCommit}</defaultAutoCommit>
+                    <validationInterval>${DS_WSO2UMDB_validationInterval}</validationInterval>
+                    <defaultAutoCommit>${DS_WSO2UMDB_defaultAutoCommit}</defaultAutoCommit>
                 </configuration>
             </definition>
         </datasource>

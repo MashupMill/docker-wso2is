@@ -332,7 +332,7 @@
     </dbConfig>
     <remoteInstance url="https://localhost">
         <id>gov</id>
-        <cacheId>${DS.WSO2REG_DB.username}@${DS.WSO2REG_DB.url}</cacheId>
+        <cacheId>${DS_WSO2REGDB_username}@${DS_WSO2REGDB_url}</cacheId>
         <dbConfig>govregistry</dbConfig>
         <readOnly>false</readOnly>
         <enableCache>true</enableCache>

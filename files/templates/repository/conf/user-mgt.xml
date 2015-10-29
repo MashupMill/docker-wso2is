@@ -17,13 +17,13 @@
 <UserManager>
     <Realm>
         <Configuration>
-            <AddAdmin>${UserManager.Real.Configuration.AddAdmin}</AddAdmin>
-            <AdminRole>${UserManager.Real.Configuration.AdminRole}</AdminRole>
+            <AddAdmin>${UserManager_Real_Configuration_AddAdmin}</AddAdmin>
+            <AdminRole>${UserManager_Real_Configuration_AdminRole}</AdminRole>
             <AdminUser>
-                <UserName>${UserManager.Real.Configuration.AdminUser.UserName}</UserName>
-                <Password>${UserManager.Real.Configuration.AdminUser.Password}</Password>
+                <UserName>${UserManager_Real_Configuration_AdminUser_UserName}</UserName>
+                <Password>${UserManager_Real_Configuration_AdminUser_Password}</Password>
             </AdminUser>
-            <EveryOneRoleName>${UserManager.Real.Configuration.EveryOneRoleName}</EveryOneRoleName>
+            <EveryOneRoleName>${UserManager_Real_Configuration_EveryOneRoleName}</EveryOneRoleName>
             <!-- By default users in this role sees the registry root -->
             <Property name="dataSource">jdbc/WSO2UM_DB</Property>
         </Configuration>
