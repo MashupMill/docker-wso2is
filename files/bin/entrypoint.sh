@@ -40,7 +40,14 @@ if [ -d /extra ] && [ "`ls -A /extra`" ]; then
     cp -R /extra/* ${CARBON_HOME}/
 fi
 
-CONTAINER_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
+export CONTAINER_IP=`head -n 1 /etc/hosts | awk '{print $1}'`
+
+# Process the well known address envrionment variable
+for member in $WELL_KNOWN_ADDRESSES; do
+    host=`echo $member | awk -F':' '{print $1}'`
+    port=`echo $member | awk -F':' '{print $2}'`
+    export WELL_KNOWN_MEMBERS="$WELL_KNOWN_MEMBERS<member><hostName>${host}</hostName><port>${port:-4000}</port></member>"
+done
 
 # Create tmp file
 PROPERTIES_FILE=`mktemp -t "entrypoint.XXXXXXXXXX"`
@@ -53,8 +60,6 @@ appendPropertiesFile "${CARBON_HOME}/app.properties" "$PROPERTIES_FILE"
 
 # Read in the environment variables last (they take priority)
 getEnvironmentVarsAsProperties >> $PROPERTIES_FILE
-
-echo "container.ip=$CONTAINER_IP" >> $PROPERTIES_FILE
 
 if [[ "$MOUNT_REGISTRY" == "true" ]]; then
     echo 'wso2registry.mount.prefix=
@@ -105,18 +110,6 @@ fi
 
 # Remove the PROPERTIES_FILE file
 rm $PROPERTIES_FILE
-
-xmlstarlet edit --inplace -u "/axisconfig/clustering/@enable" -v "${CLUSTERING_ENABLED:-false}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']" -v "${CLUSTER_DOMAIN:-wso2.carbon.domain}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='membershipScheme']" -v "${CLUSTERING_MEMBERSHIP_SCHEME:-multicast}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$CONTAINER_IP}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-
-# Insert the <parameter name="HostnameVerifier">AllowAll</parameter> element ...
-# this is to allow the HTTPS requests passed through from the api-server to internal servers to allow any hostname
-xmlstarlet edit --inplace -s "/axisconfig/transportSender[@name='https']" -t elem -n parameter -v "${HTTPS_HOSTNAME_VERIFIER:-DefaultAndLocalhost}" \
-           -i "/axisconfig/transportSender[@name='https']/parameter[not(@name)]" -t attr -n name -v HostnameVerifier \
-           ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-
 
 # Set the http proxy port if provided
 xmlstarlet edit --inplace --delete "/Server/Service/Connector[not(@secure)]/@proxyPort" ${CARBON_HOME}/repository/conf/tomcat/catalina-server.xml
