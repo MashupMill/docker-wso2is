@@ -107,7 +107,7 @@ fi
 rm $PROPERTIES_FILE
 
 xmlstarlet edit --inplace -u "/axisconfig/clustering/@enable" -v "${CLUSTERING_ENABLED:-false}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
-xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']/@name" -v "${CLUSTER_DOMAIN:-wso2.carbon.domain}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
+xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='domain']" -v "${CLUSTER_DOMAIN:-wso2.carbon.domain}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='membershipScheme']" -v "${CLUSTERING_MEMBERSHIP_SCHEME:-multicast}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 xmlstarlet edit --inplace -u "/axisconfig/clustering/parameter[@name='localMemberHost']" -v "${MULTICAST_PUBLISH_IP:-$CONTAINER_IP}" ${CARBON_HOME}/repository/conf/axis2/axis2.xml
 
