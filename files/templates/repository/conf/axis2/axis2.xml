@@ -692,10 +692,6 @@
            "membershipScheme" above is set to "wka"
         -->
         <members>
-            <member>
-                <hostName>127.0.0.1</hostName>
-                <port>${LOCAL_MEMBER_PORT}</port>
-            </member>
             ${WELL_KNOWN_MEMBERS}
         </members>
 
