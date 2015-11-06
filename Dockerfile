@@ -34,7 +34,7 @@ RUN echo 'deb http://http.us.debian.org/debian squeeze main' > /etc/apt/sources.
     wget -O /opt/wso2/bin/property-parser.jar https://github.com/MashupMill/property-parser/releases/download/1.5/property-parser-1.5.jar
 
 # Define a volume where people can mount custom files to override anything in the wso2 product
-VOLUME ["/extra"]
+VOLUME ["/extra", "/startup.d"]
 WORKDIR /opt/wso2/
 EXPOSE 9443
 CMD ["/opt/wso2/bin/entrypoint.sh"]

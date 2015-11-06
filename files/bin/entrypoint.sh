@@ -123,10 +123,13 @@ if [ "$PROFILE" != "" ]; then
     OPTS="-Dprofile=$PROFILE $OPTS"
 fi
 
-if [ -f "${CARBON_HOME}/bin/extra.sh" ]; then
-    chmod a+x ${CARBON_HOME}/bin/extra.sh
-    ${CARBON_HOME}/bin/extra.sh
-fi
+for f in /startup.d/*; do
+    case "$f" in
+        *.sh)  echo "$0: running $f"; . "$f" ;;
+        *)     echo "$0: ignoring $f" ;;
+    esac
+    echo
+done
 
 sleep ${DELAY_START:-0}
 
