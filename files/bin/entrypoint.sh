@@ -76,6 +76,7 @@ fi
 # instances of ${Property.Name} with the actual property value.
 cd "${CARBON_HOME}/templates"
 find -type f | while read fname; do
+  echo "Creating $fname"
   template "$fname" "$PROPERTIES_FILE"
 done
 
@@ -132,5 +133,7 @@ for f in /startup.d/*; do
 done
 
 sleep ${DELAY_START:-0}
+
+echo "Starting wso2server.sh"
 
 ${CARBON_HOME}/bin/wso2server.sh "$@" "${OPTS}"
