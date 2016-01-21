@@ -136,4 +136,7 @@ sleep ${DELAY_START:-0}
 
 echo "Starting wso2server.sh"
 
-${CARBON_HOME}/bin/wso2server.sh "$@" "${OPTS}"
+trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+${CARBON_HOME}/bin/wso2server.sh "$@" "${OPTS}" &
+wait $!
+exit $?
