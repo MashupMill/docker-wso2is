@@ -36,5 +36,5 @@ RUN echo 'deb http://http.us.debian.org/debian squeeze main' > /etc/apt/sources.
 # Define a volume where people can mount custom files to override anything in the wso2 product
 VOLUME ["/extra", "/startup.d"]
 WORKDIR /opt/wso2/
-EXPOSE 9443
+EXPOSE 9443 9763
 CMD ["/opt/wso2/bin/entrypoint.sh"]

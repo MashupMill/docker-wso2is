@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CARBON_HOME=${CARBON_HOME:-/opt/wso2}
+export CARBON_HOME=${CARBON_HOME:-/opt/wso2}
 
 getEnvironmentVarsAsProperties () {
     # Take any environment variables prefixed with APP_, remove the APP_ prefix, then change underscores to periods
@@ -79,6 +79,8 @@ find -type f | while read fname; do
   echo "Creating $fname"
   template "$fname" "$PROPERTIES_FILE"
 done
+
+"${CARBON_HOME}/bin/apply-properties.sh" "$PROPERTIES_FILE"
 
 # If we have deployment synchronizer turned on and its pointing to a local svn repo (presumably it is a shared mount)
 # and its an empty directory, we need to initialize the svn repo
