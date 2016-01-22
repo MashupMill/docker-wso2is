@@ -31,7 +31,7 @@ RUN echo 'deb http://http.us.debian.org/debian squeeze main' > /etc/apt/sources.
     chmod a+x /opt/wso2/bin/*.sh && \
 
     # Download the property parser (to convert a properties file into property arguments)
-    wget -O /opt/wso2/bin/property-parser.jar https://github.com/MashupMill/property-parser/releases/download/1.5/property-parser-1.5.jar
+    wget -O /opt/wso2/bin/property-parser.jar https://github.com/MashupMill/property-parser/releases/download/1.6/property-parser-1.6.jar
 
 # Define a volume where people can mount custom files to override anything in the wso2 product
 VOLUME ["/extra", "/startup.d"]
